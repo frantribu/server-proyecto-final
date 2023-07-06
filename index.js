@@ -44,7 +44,7 @@ app.post("/iniciar-sesion", (req, res) => {
     //req.body es el cuerpo de la peticion
     const { identifier, password} = req.body
 
-    const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g 
+    const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
 
     function contraseñaEsValido(passwordFromClient, passwordFromConexion) {
         return passwordFromClient === passwordFromConexion      
@@ -54,7 +54,7 @@ app.post("/iniciar-sesion", (req, res) => {
         conexion.query("SELECT * FROM usuario WHERE email = ?",
         [identifier],
         (err, datos) => {
-        if(err) return res.status(400).send(err)
+        if(err) return res.status(400).json(err)
         
         const usuario = {...datos[0]}
 
@@ -71,7 +71,7 @@ app.post("/iniciar-sesion", (req, res) => {
     conexion.query("SELECT * FROM usuario WHERE username = ?",
     [identifier],
     (err, datos) => {
-        if(err) return res.status(400).send(err)
+        if(err) return res.status(400).json(err)
 
         const usuario = {...datos[0]}
 
